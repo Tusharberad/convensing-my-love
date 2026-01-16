@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>I'm Sorry 💖</title>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            background: #fff0f6;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            border: 2px solid #fddde6;
+            padding: 20px;
+            border-radius: 15px;
+            background: #fff;
+        }
+        img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        button {
+            padding: 15px 25px;
+            margin: 10px;
+            font-size: 18px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+        .yes { background: #4CAF50; color: white; }
+        .no { background: #f44336; color: white; }
+    </style>
+    </head>
+    <body>
+
+        <!-- 🎵 Background Music -->
+        <audio id="bgMusic" loop>
+            <!-- You can replace this link with your own MP3 -->
+            <source
+                src="By_Marsel_Mihaylov_-_Best_Love_Songs_And_Greatest_Romantic_English_Acoustic_Love_Songs_Happiness_(mp3.pm).mp3"
+                type="audio/mpeg">
+        </audio>
+
+        <div class="container">
+            <img id="questionImage" src alt="Image">
+            <h2 id="questionText"></h2>
+
+            <div id="buttons">
+                <button class="yes" onclick="answer('yes')">Yes</button>
+                <button class="no" onclick="answer('no')">No</button>
+            </div>
+        </div>
+
+        <script>
+    // 💖 Questions + images
+    const quiz = [
+        { text: "Will you give me a chance to apologize?", img: "sad-cry.gif" },
+        { text: "Can we talk peacefully?", img: "hugs.gif" },
+        { text: "Do you still care about us?", img: "love.gif" },
+        { text: "Can we fix this together?", img: "kpop-triples.gif" }
+    ];
+
+    let current = 0;
+
+    function showQuestion() {
+        if (current < quiz.length) {
+            document.getElementById("questionText").innerText = quiz[current].text;
+            document.getElementById("questionImage").src = quiz[current].img;
+        } else {
+            document.getElementById("questionText").innerText = "Thank you ❤️";
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("questionImage").src = "love.gif";
+        }
+    }
+
+    function answer(option) {
+        if (option === "no") {
+            alert("I understand... but please hear me out 💕");
+        }
+        current++;
+        showQuestion();
+    }
+
+    // 🎶 Auto-play music on first user interaction (browser safe)
+    const music = document.getElementById("bgMusic");
+    music.volume = 0.0;
+
+    function startMusic() {
+        music.play().catch(() => {});
+        let v = 0;
+        const fade = setInterval(() => {
+            if (v < 0.7) {
+                v += 0.05;
+                music.volume = v;
+            } else {
+                clearInterval(fade);
+            }
+        }, 300);
+        document.removeEventListener("click", startMusic);
+    }
+
+    document.addEventListener("click", startMusic);
+
+    // Load first question
+    showQuestion();
+</script>
+
+    </body>
+</html>
