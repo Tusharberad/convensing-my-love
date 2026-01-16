@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>I’m Sorry ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at top, #ffb6c1, #6a0572);
+    animation: bgMove 10s infinite alternate;
+}
+
+@keyframes bgMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.card {
+    width: 360px;
+    background: rgba(255,255,255,0.96);
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+    text-align: center;
+    transform: perspective(900px) rotateX(6deg);
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0) perspective(900px); }
+    50% { transform: translateY(-10px) perspective(900px); }
+}
+
+img {
+    width: 140px;
+    margin: 10px auto;
+}
+
+h2 {
+    color: #ff4d6d;
+}
+
+p {
+    font-size: 16px;
+    color: #444;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+button {
+    flex: 1;
+    background: linear-gradient(135deg, #ff4d6d, #ff758f);
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+button.secondary {
+    background: linear-gradient(135deg, #999, #bbb);
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music -->
+<audio id="bgMusic" loop>
+    <source src="love.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="card"></div>
+
+<script>
+const steps = [
+{
+    img: "sad-cry.gif",
+    title: "I’m really sorry 😔",
+    text: "Can I talk to you for a minute?",
+    b1: "Okay…",
+    b2: "I’m still angry"
+},
+{
+    img: "sad-cry.gif",
+    title: "I understand 💔",
+    text: "Did I hurt you without realizing it?",
+    b1: "Yes, you did",
+    b2: "Maybe a little"
+},
+{
+    img: "hugs.gif",
+    title: "You matter to me 🫂",
+    text: "Do you know how important you are in my life?",
+    b1: "I hope so",
+    b2: "I don’t feel it"
+},
+{
+    img: "love.gif",
+    title: "From my heart ❤️",
+    text: "Can you forgive me if I promise to be better?",
+    b1: "I’ll try",
+    b2: "I need time"
+},
+{
+    img: "love.gif",
+    title: "One last thing 🥺",
+    text: "Can I get one more chance to make you smile?",
+    b1: "Yes ❤️",
+    b2: "Come here 🤍"
+},
+{
+    img: "virtual-hug.gif",
+    title: "Virtual Hug 🤍",
+    text: "This hug is for you… until I give you a real one 🫂💖",
+    b1: "I feel better 😊",
+    b2: "Hug tighter 🤗"
+}
+];
+
+let index = 0;
+const card = document.getElementById("card");
+const music = document.getElementById("bgMusic");
+let musicStarted = false;
+
+function render() {
+    const s = steps[index];
+    card.innerHTML = `
+        <img src="${s.img}">
+        <h2>${s.title}</h2>
+        <p>${s.text}</p>
+        <div class="buttons">
+            <button onclick="next()">${s.b1}</button>
+            <button class="secondary" onclick="next()">${s.b2}</button>
+        </div>
+    `;
+}
+
+function next() {
+    // Start music on first interaction (browser-safe)
+    if (!musicStarted) {
+        music.volume = 0.5;
+        music.play();
+        musicStarted = true;
+    }
+
+    // Stop at last slide (happy ending)
+    if (index < steps.length - 1) {
+        index++;
+        render();
+    }
+}
+
+render();
+</script>
+
+</body>
+</html>
